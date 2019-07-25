@@ -1,0 +1,69 @@
+# SPECTRUM KERNEL MANAGER
+# Ramdisk file for profile based kernel management
+# Implimentation inspired by Franco's fku profiles
+
+# Initialization
+
+on property:sys.boot_completed=1
+    # Set default profile on first boot
+    exec u:r:magisk:s0 root root -- /init.spectrum.sh
+    exec u:r:init:s0 root root -- /init.spectrum.sh
+    exec u:r:su:s0 root root -- /init.spectrum.sh
+
+   # Enable Spectrum support
+   setprop spectrum.support 1
+   # Add kernel name
+   setprop persist.spectrum.kernel Shinsoo
+
+on init
+    write /sys/block/zram0/comp_algorithm lz4
+    write /sys/block/zram0/max_comp_streams 8
+    write /sys/block/zram0/disksize 536870912
+
+# Run post-boot script after Qualcomm's post_boot shell script
+on property:init.svc.qcom-post-boot=stopped
+
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_cont
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_sat
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_val
+
+    chown system system /sys/module/klapse/enabled_mode
+    chmod 0644 /sys/module/klapse/enabled_mode
+    write /sys/module/klapse/enabled_mode 1
+
+    chown system system /sys/module/workqueue/parameters/power_efficient
+
+# According to Qcom this legacy value improves first launch latencies
+# Stock value is 512k
+    setprop dalvik.vm.heapminfree 2m
+
+# Zram
+    write /sys/block/zram0/comp_algorithm lz4
+    write /sys/block/zram0/max_comp_streams 8
+    write /sys/block/zram0/disksize 536870912
+
+#    write /sys/block/zram0/max_comp_streams 1
+#    write /sys/block/zram0/disksize 1073741824
+
+# Colour control values
+    write /sys/devices/platform/kcal_ctrl.0/kcal_sat 273
+
+    write /sys/devices/platform/kcal_ctrl.0/kcal_val 261
+
+    write /sys/devices/platform/kcal_ctrl.0/kcal_cont 260
+
+# Tweak defaults
+    write /sys/module/workqueue/parameters/power_efficient Y
+
+
+# Balance (default profile)
+on property:persist.spectrum.profile=0
+
+# Performance
+on property:persist.spectrum.profile=1
+
+# Battery
+on property:persist.spectrum.profile=2
+
+# Gaming
+on property:persist.spectrum.profile=3
