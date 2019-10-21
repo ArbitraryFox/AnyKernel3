@@ -1,0 +1,17 @@
+import /init.spectrum.rc
+
+on init
+
+on property:ro.build.version.sdk=27
+    setprop ro.vendor.qti.config.zram true
+
+on property:init.svc.qcom-post-boot=stopped
+
+    restorecon --recursive /sys/block/mmcblk0/queue
+    restorecon --recursive /sys/block/mmcblk1/queue
+
+    # Set post boot parameters
+    exec u:r:magisk:s0 root root -- /init.post_boot.sh
+
+    # Set spectrum profile configuration
+    exec u:r:magisk:s0 root root -- /init.spectrum.sh

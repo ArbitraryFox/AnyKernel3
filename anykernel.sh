@@ -46,7 +46,7 @@ patch_prop "default.prop" "ro.debuggable" "0"
 ui_print "Default.prop patched."
 
 # update init.rc
-insert_line init.rc "spectrum" after 'import /init.${ro.zygote}.rc' 'import /init.spectrum.rc';
+insert_line init.rc "import /init.Shinsoo.rc" after 'import /init.${ro.zygote}.rc' 'import /init.Shinsoo.rc';
 
 # end ramdisk changes
 ui_print "Now writing boot..."

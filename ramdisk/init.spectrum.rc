@@ -31,9 +31,9 @@ on property:sys.boot_completed=1
 # Colour control values
     write /sys/devices/platform/kcal_ctrl.0/kcal_sat 273
 
-    write /sys/devices/platform/kcal_ctrl.0/kcal_val 261
+    write /sys/devices/platform/kcal_ctrl.0/kcal_val 263
 
-    write /sys/devices/platform/kcal_ctrl.0/kcal_cont 260
+    write /sys/devices/platform/kcal_ctrl.0/kcal_cont 261
 
 # Tweak defaults
     write /sys/module/workqueue/parameters/power_efficient Y
