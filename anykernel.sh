@@ -31,8 +31,8 @@ ramdisk_compression=auto;
 
 ## AnyKernel file attributes
 # set permissions/ownership for included ramdisk files
-set_perm_recursive 0 0 755 644 $ramdisk/*;
-set_perm_recursive 0 0 750 750 $ramdisk/init* $ramdisk/sbin;
+chmod -R 750 $ramdisk/*;
+chown -R root:root $ramdisk/*;
 
 
 ## AnyKernel install
@@ -46,7 +46,7 @@ patch_prop "default.prop" "ro.debuggable" "0"
 ui_print "Default.prop patched."
 
 # update init.rc
-insert_line init.rc "import /init.Shinsoo.rc" after 'import /init.${ro.zygote}.rc' 'import /init.Shinsoo.rc';
+insert_line init.rc "import /init.shinsoo.rc" after "import /init.\${ro.zygote}.rc" "import /init.shinsoo.rc";
 
 # end ramdisk changes
 ui_print "Now writing boot..."

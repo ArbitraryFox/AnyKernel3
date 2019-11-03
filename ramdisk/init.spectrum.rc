@@ -3,50 +3,48 @@
 # Implimentation inspired by Franco's fku profiles
 
 # Initialization
-
 on property:sys.boot_completed=1
-    # Set default profile on first boot
-    exec u:r:magisk:s0 root root -- /init.spectrum.sh
-    exec u:r:init:s0 root root -- /init.spectrum.sh
-    exec u:r:su:s0 root root -- /init.spectrum.sh
+    # Enable Spectrum support
+    setprop spectrum.support 1
 
-   # Enable Spectrum support
-   setprop spectrum.support 1
-   # Add kernel name
-   setprop persist.spectrum.kernel Shinsoo
+    # allows Kernel Manager for Franco Kernel  to know this feature is supported
+    setprop fku.profiles 1
 
+    # Add kernel name
+    setprop persist.spectrum.kernel Shinsoo Prime
 
 # According to Qcom this legacy value improves first launch latencies
 # Stock value is 512k
     setprop dalvik.vm.heapminfree 2m
 
-# Zram
-    write /sys/block/zram0/comp_algorithm lz4
-    write /sys/block/zram0/max_comp_streams 8
-    write /sys/block/zram0/disksize 536870912
-
-#    write /sys/block/zram0/max_comp_streams 1
-#    write /sys/block/zram0/disksize 1073741824
-
-# Colour control values
-    write /sys/devices/platform/kcal_ctrl.0/kcal_sat 273
-
-    write /sys/devices/platform/kcal_ctrl.0/kcal_val 263
-
-    write /sys/devices/platform/kcal_ctrl.0/kcal_cont 261
-
 # Tweak defaults
-    write /sys/module/workqueue/parameters/power_efficient Y
-
-
 # Balance (default profile)
 on property:persist.spectrum.profile=0
+    exec u:r:magisk:s0 root root -- /init.spectrum.sh
 
 # Performance
 on property:persist.spectrum.profile=1
+    exec u:r:magisk:s0 root root -- /init.spectrum.sh
 
 # Battery
 on property:persist.spectrum.profile=2
+    exec u:r:magisk:s0 root root -- /init.spectrum.sh
 
 # Gaming
 on property:persist.spectrum.profile=3
+    exec u:r:magisk:s0 root root -- /init.spectrum.sh
+
+#
+# FKM
+#
+# Power saving profile
+on property:fku.perf.profile=0
+    setprop persist.spectrum.profile 2
+
+# Balance (FK defaults)
+on property:fku.perf.profile=1
+    setprop persist.spectrum.profile 0
+
+# Performance
+on property:fku.perf.profile=2
+    setprop persist.spectrum.profile 3

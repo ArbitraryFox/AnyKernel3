@@ -23,6 +23,7 @@ chmod 0644 /sys/block/zram0/disksize
 
 swapoff /dev/block/zram0
 echo 1 > /sys/block/zram0/reset
+echo 0 > /proc/sys/vm/page-cluster
 echo "lz4" > /sys/block/zram0/comp_algorithm
 echo 536870912 > /sys/block/zram0/disksize
 echo 8 > /sys/block/zram0/max_comp_streams
@@ -33,5 +34,9 @@ swapon /dev/block/zram0 -p 32758
 write /sys/block/mmcblk0/queue/scheduler cfq
 write /sys/block/mmcblk1/queue/scheduler cfq
 
-# Set read ahead to 512kB for internal
-write /sys/block/mmcblk0/queue/read_ahead_kb 512
+# Set read ahead to 128kB for internal and 512kB for external storage
+write /sys/block/mmcblk0/queue/read_ahead_kb 128
+write /sys/block/mmcblk1/queue/read_ahead_kb 512
+
+# Disable slice_idle
+write /sys/block/mmcblk0/queue/iosched/slice_idle 0
