@@ -127,7 +127,7 @@ if [ -f version ]; then
   ui_printfile version;
   ui_print " ";
 fi;
-ui_print " " "Shinsoo Prime Kernel by Watanabe" " " " ";
+ui_print " " "Orokin Kernel by Eldritch" " " " ";
 
 $BOOTMODE || $bb mount -o bind /dev/urandom /dev/random;
 umount_all;

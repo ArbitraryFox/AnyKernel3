@@ -11,7 +11,7 @@ on property:sys.boot_completed=1
     setprop fku.profiles 1
 
     # Add kernel name
-    setprop persist.spectrum.kernel Shinsoo Prime
+    setprop persist.spectrum.kernel Orokin
 
 # According to Qcom this legacy value improves first launch latencies
 # Stock value is 512k
