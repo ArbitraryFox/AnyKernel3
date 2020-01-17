@@ -23,7 +23,7 @@ if [[ $(getprop sys.boot_completed) -eq 1 ]]; then
 
     echo "lz4" > /sys/block/zram0/comp_algorithm
     echo 8 > /sys/block/zram0/max_comp_streams
-    echo 536870912 > /sys/block/zram0/disksize
+    echo 1073741824 > /sys/block/zram0/disksize
     echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     echo "msm-adreno-tz" > /sys/class/kgsl/kgsl-3d0/devfreq/governor
 
@@ -39,7 +39,7 @@ if [[ $(getprop sys.boot_completed) -eq 1 ]]; then
     	write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
     	write /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay 0
     	write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 90
-    	write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 20000
+    	write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 60000
     	write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1113600
     	write /sys/devices/system/cpu/cpufreq/interactive/timer_slack 480000
     	write /sys/devices/system/cpu/cpufreq/interactive/target_loads "90 400457:22 480000:22 576000:21 652800:81 729600:21 806400:82 883200:21 960000:21 1036800:21 1113600:82 1248000:20 1305600:21 1401600:82 1536000:21 1689600:20 1766400:20 1804800:20 1843200:21 1958400:87"
