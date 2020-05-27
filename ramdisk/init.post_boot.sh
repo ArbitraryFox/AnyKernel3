@@ -25,7 +25,7 @@ swapoff /dev/block/zram0
 echo 1 > /sys/block/zram0/reset
 echo 0 > /proc/sys/vm/page-cluster
 echo "lz4" > /sys/block/zram0/comp_algorithm
-echo 1073741824 > /sys/block/zram0/disksize
+echo 1610612736 > /sys/block/zram0/disksize
 echo 8 > /sys/block/zram0/max_comp_streams
 mkswap /dev/block/zram0
 swapon /dev/block/zram0 -p 32758

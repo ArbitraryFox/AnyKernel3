@@ -17,13 +17,9 @@ if [[ $(getprop sys.boot_completed) -eq 1 ]]; then
     chmod 0644 /sys/class/kgsl/kgsl-3d0/devfreq/min_pwrlvl
     chmod 0664 /sys/class/kgsl/kgsl-3d0/devfreq/governor
     chmod 0644 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    chmod 0644 /sys/block/zram0/comp_algorithm
-    chmod 0644 /sys/block/zram0/max_comp_streams
     chmod 0644 /sys/block/zram0/disksize
 
-    echo "lz4" > /sys/block/zram0/comp_algorithm
-    echo 8 > /sys/block/zram0/max_comp_streams
-    echo 1073741824 > /sys/block/zram0/disksize
+    echo 1610612736 > /sys/block/zram0/disksize
     echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     echo "msm-adreno-tz" > /sys/class/kgsl/kgsl-3d0/devfreq/governor
 
